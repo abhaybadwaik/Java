@@ -1,16 +1,15 @@
 package streams;
 
+import org.w3c.dom.ls.LSOutput;
+
 import javax.print.DocFlavor;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class StreamExamples {
     public static void main(String[] args) {
         StreamExamples obj = new StreamExamples();
-        obj.wordCount();
+        obj.shortestWord();
     }
 
     void even() {
@@ -77,6 +76,19 @@ public class StreamExamples {
         Map<String,Long> result= words.stream()
                 .collect(Collectors.groupingBy(n->n,Collectors.counting()));
         System.out.println(result);
+    }
+    void longestWord(){
+        List<String> words = Arrays.asList("stream", "collector", "flatmap", "optional", "lambda");
+
+   words.stream()
+                .max(Comparator.comparingInt(String::length))
+                .ifPresent(System.out::println);
+    }
+    void shortestWord(){
+        List<String> names = Arrays.asList("Ab","abhay","royal","mumbai");
+        names.stream()
+                .min(Comparator.comparingInt(String::length))
+                .ifPresent(System.out::println);
     }
 
 
