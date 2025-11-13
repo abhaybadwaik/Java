@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class StreamExamples {
     public static void main(String[] args) {
         StreamExamples obj = new StreamExamples();
-        obj.shortestWord();
+        obj.duplicateElements();
     }
 
     void even() {
@@ -90,11 +90,18 @@ public class StreamExamples {
                 .min(Comparator.comparingInt(String::length))
                 .ifPresent(System.out::println);
     }
-//    void duplicateElements(){
-//        List<Integer> elements = Arrays.asList(1,2,3,4,5,5,6,7);
-//        elements.stream()
-//                .filter(duplicateElements();)
-//    }
+    void duplicateElements() {
+        List<Integer> elements = Arrays.asList(1, 2, 3, 4, 5, 5, 6, 7, 3, 2);
+
+        Set<Integer> seen = new HashSet<>(); // keeps track of what we've seen
+
+        List<Integer> duplicates = elements.stream()
+                .filter(n -> !seen.add(n))      // add() returns false if element already exists
+                .distinct()                     // remove repeated duplicates
+                .collect(Collectors.toList());  // collect them into a list
+
+        System.out.println("Duplicate elements: " + duplicates);
+    }
 
 
 
